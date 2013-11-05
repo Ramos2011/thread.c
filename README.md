@@ -35,8 +35,8 @@ void printids(const char *s)
     pid_t pid;
     pthread_t tid;
     
-    pid = getpid();
-    tid = pthread_self();
+    pid = getpid();/*获得进程标识*/
+    tid = pthread_self();/*获得线程自身标识*/
     
     printf("%s pid %u tid %u (0x%x) \n" , s , (u32)pid , (u32)tid , (u32)tid );
 }
