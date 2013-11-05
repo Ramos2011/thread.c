@@ -13,3 +13,38 @@ thread.c
 typedef unsigned long u32;
 pthread_t ntid; /*线程标识符*/
 
+void printids(const char *);
+void *run(void *);/* 线程函数*/
+
+int main()
+{
+    int err;
+    err = pthread_creat(&ntid, NULL, run, NULL);/*创建线程*/
+    if(err != 0)
+    {
+        printf("can't creat thread: %s !\n", strerror(err));
+        exit(1);
+    }
+    printids("main thread : ");
+    sleep(1);
+    return 0;
+}
+
+void printids(const char *s)
+{
+    pid_t pid;
+    pthread_t tid;
+    
+    pid = getpid();
+    tid = pthread_self();
+    
+    printf("%s pid %u tid %u (0x%x) \n" , s , (u32)pid , (u32)tid , (u32)tid );
+}
+
+void *run(void *arg)
+{
+    printids("new thread:");
+    return((void*)0);
+}
+
+
